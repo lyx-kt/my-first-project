@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysVehicleInformationMapper">
+    
+    <resultMap type="SysVehicleInformation" id="SysVehicleInformationResult">
+        <result property="placeOfDeparture"    column="place_of_departure"    />
+        <result property="destinationCountry"    column="destination_country"    />
+        <result property="carModel"    column="car_model"    />
+        <result property="licensePlateNumber"    column="license_plate_number"    />
+        <result property="exitPort"    column="exit_port"    />
+        <result property="vehicle Status"    column="vehicle _status"    />
+        <result property="effectiveLoadingDimensions"    column="effective_loading_dimensions"    />
+        <result property="numberOfAxles"    column="number_of_axles"    />
+        <result property="loadCapacity"    column="load_capacity"    />
+        <result property="estimatedShippingCost"    column="estimated_shipping_cost"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="remark"    column="remark"    />
+        <result property="updateBy"    column="update_by"    />
+    </resultMap>
+
+    <sql id="selectSysVehicleInformationVo">
+        select place_of_departure, destination_country, car_model, license_plate_number, exit_port, vehicle _status, effective_loading_dimensions, number_of_axles, load_capacity, estimated_shipping_cost, create_time, date_time, create_by, remark, update_by from sys_vehicle_information
+    </sql>
+
+    <select id="selectSysVehicleInformationList" parameterType="SysVehicleInformation" resultMap="SysVehicleInformationResult">
+        <include refid="selectSysVehicleInformationVo"/>
+        <where>  
+            <if test="destinationCountry != null  and destinationCountry != ''"> and destination_country = #{destinationCountry}</if>
+            <if test="carModel != null  and carModel != ''"> and car_model = #{carModel}</if>
+            <if test="licensePlateNumber != null  and licensePlateNumber != ''"> and license_plate_number = #{licensePlateNumber}</if>
+            <if test="exitPort != null  and exitPort != ''"> and exit_port = #{exitPort}</if>
+            <if test="vehicle Status != null  and vehicle Status != ''"> and vehicle _status = #{vehicle Status}</if>
+            <if test="effectiveLoadingDimensions != null  and effectiveLoadingDimensions != ''"> and effective_loading_dimensions = #{effectiveLoadingDimensions}</if>
+            <if test="numberOfAxles != null  and numberOfAxles != ''"> and number_of_axles = #{numberOfAxles}</if>
+            <if test="loadCapacity != null "> and load_capacity = #{loadCapacity}</if>
+            <if test="estimatedShippingCost != null "> and estimated_shipping_cost = #{estimatedShippingCost}</if>
+            <if test="dateTime != null "> and date_time = #{dateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysVehicleInformationByPlaceOfDeparture" parameterType="String" resultMap="SysVehicleInformationResult">
+        <include refid="selectSysVehicleInformationVo"/>
+        where place_of_departure = #{placeOfDeparture}
+    </select>
+
+    <insert id="insertSysVehicleInformation" parameterType="SysVehicleInformation">
+        insert into sys_vehicle_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="placeOfDeparture != null">place_of_departure,</if>
+            <if test="destinationCountry != null">destination_country,</if>
+            <if test="carModel != null and carModel != ''">car_model,</if>
+            <if test="licensePlateNumber != null and licensePlateNumber != ''">license_plate_number,</if>
+            <if test="exitPort != null and exitPort != ''">exit_port,</if>
+            <if test="vehicle Status != null and vehicle Status != ''">vehicle _status,</if>
+            <if test="effectiveLoadingDimensions != null">effective_loading_dimensions,</if>
+            <if test="numberOfAxles != null">number_of_axles,</if>
+            <if test="loadCapacity != null">load_capacity,</if>
+            <if test="estimatedShippingCost != null">estimated_shipping_cost,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="remark != null">remark,</if>
+            <if test="updateBy != null">update_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="placeOfDeparture != null">#{placeOfDeparture},</if>
+            <if test="destinationCountry != null">#{destinationCountry},</if>
+            <if test="carModel != null and carModel != ''">#{carModel},</if>
+            <if test="licensePlateNumber != null and licensePlateNumber != ''">#{licensePlateNumber},</if>
+            <if test="exitPort != null and exitPort != ''">#{exitPort},</if>
+            <if test="vehicle Status != null and vehicle Status != ''">#{vehicle Status},</if>
+            <if test="effectiveLoadingDimensions != null">#{effectiveLoadingDimensions},</if>
+            <if test="numberOfAxles != null">#{numberOfAxles},</if>
+            <if test="loadCapacity != null">#{loadCapacity},</if>
+            <if test="estimatedShippingCost != null">#{estimatedShippingCost},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysVehicleInformation" parameterType="SysVehicleInformation">
+        update sys_vehicle_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="destinationCountry != null">destination_country = #{destinationCountry},</if>
+            <if test="carModel != null and carModel != ''">car_model = #{carModel},</if>
+            <if test="licensePlateNumber != null and licensePlateNumber != ''">license_plate_number = #{licensePlateNumber},</if>
+            <if test="exitPort != null and exitPort != ''">exit_port = #{exitPort},</if>
+            <if test="vehicle Status != null and vehicle Status != ''">vehicle _status = #{vehicle Status},</if>
+            <if test="effectiveLoadingDimensions != null">effective_loading_dimensions = #{effectiveLoadingDimensions},</if>
+            <if test="numberOfAxles != null">number_of_axles = #{numberOfAxles},</if>
+            <if test="loadCapacity != null">load_capacity = #{loadCapacity},</if>
+            <if test="estimatedShippingCost != null">estimated_shipping_cost = #{estimatedShippingCost},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+        </trim>
+        where place_of_departure = #{placeOfDeparture}
+    </update>
+
+    <delete id="deleteSysVehicleInformationByPlaceOfDeparture" parameterType="String">
+        delete from sys_vehicle_information where place_of_departure = #{placeOfDeparture}
+    </delete>
+
+    <delete id="deleteSysVehicleInformationByPlaceOfDepartures" parameterType="String">
+        delete from sys_vehicle_information where place_of_departure in 
+        <foreach item="placeOfDeparture" collection="array" open="(" separator="," close=")">
+            #{placeOfDeparture}
+        </foreach>
+    </delete>
+</mapper>

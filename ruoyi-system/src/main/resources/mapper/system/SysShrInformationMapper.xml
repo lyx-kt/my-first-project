@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysShrInformationMapper">
+    
+    <resultMap type="SysShrInformation" id="SysShrInformationResult">
+        <result property="scountry"    column="scountry"    />
+        <result property="sname"    column="sname"    />
+        <result property="snumber"    column="snumber"    />
+        <result property="stype"    column="stype"    />
+        <result property="szjNumbvber"    column="szj_numbvber"    />
+        <result property="szjZfm"    column="szj_zfm"    />
+    </resultMap>
+
+    <sql id="selectSysShrInformationVo">
+        select scountry, sname, snumber, stype, szj_numbvber, szj_zfm from sys_shr_information
+    </sql>
+
+    <select id="selectSysShrInformationList" parameterType="SysShrInformation" resultMap="SysShrInformationResult">
+        <include refid="selectSysShrInformationVo"/>
+        <where>  
+            <if test="sname != null  and sname != ''"> and sname like concat('%', #{sname}, '%')</if>
+            <if test="snumber != null  and snumber != ''"> and snumber = #{snumber}</if>
+            <if test="stype != null  and stype != ''"> and stype = #{stype}</if>
+            <if test="szjNumbvber != null  and szjNumbvber != ''"> and szj_numbvber = #{szjNumbvber}</if>
+            <if test="szjZfm != null  and szjZfm != ''"> and szj_zfm = #{szjZfm}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysShrInformationByScountry" parameterType="String" resultMap="SysShrInformationResult">
+        <include refid="selectSysShrInformationVo"/>
+        where scountry = #{scountry}
+    </select>
+
+    <insert id="insertSysShrInformation" parameterType="SysShrInformation">
+        insert into sys_shr_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scountry != null">scountry,</if>
+            <if test="sname != null and sname != ''">sname,</if>
+            <if test="snumber != null and snumber != ''">snumber,</if>
+            <if test="stype != null and stype != ''">stype,</if>
+            <if test="szjNumbvber != null and szjNumbvber != ''">szj_numbvber,</if>
+            <if test="szjZfm != null and szjZfm != ''">szj_zfm,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scountry != null">#{scountry},</if>
+            <if test="sname != null and sname != ''">#{sname},</if>
+            <if test="snumber != null and snumber != ''">#{snumber},</if>
+            <if test="stype != null and stype != ''">#{stype},</if>
+            <if test="szjNumbvber != null and szjNumbvber != ''">#{szjNumbvber},</if>
+            <if test="szjZfm != null and szjZfm != ''">#{szjZfm},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysShrInformation" parameterType="SysShrInformation">
+        update sys_shr_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sname != null and sname != ''">sname = #{sname},</if>
+            <if test="snumber != null and snumber != ''">snumber = #{snumber},</if>
+            <if test="stype != null and stype != ''">stype = #{stype},</if>
+            <if test="szjNumbvber != null and szjNumbvber != ''">szj_numbvber = #{szjNumbvber},</if>
+            <if test="szjZfm != null and szjZfm != ''">szj_zfm = #{szjZfm},</if>
+        </trim>
+        where scountry = #{scountry}
+    </update>
+
+    <delete id="deleteSysShrInformationByScountry" parameterType="String">
+        delete from sys_shr_information where scountry = #{scountry}
+    </delete>
+
+    <delete id="deleteSysShrInformationByScountrys" parameterType="String">
+        delete from sys_shr_information where scountry in 
+        <foreach item="scountry" collection="array" open="(" separator="," close=")">
+            #{scountry}
+        </foreach>
+    </delete>
+</mapper>

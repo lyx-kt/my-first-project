@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysUserLocationMapper">
+    
+    <resultMap type="SysUserLocation" id="SysUserLocationResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="altitude"    column="altitude"    />
+        <result property="speed"    column="speed"    />
+        <result property="direction"    column="direction"    />
+        <result property="accuracy"    column="accuracy"    />
+        <result property="coordinateType"    column="coordinate_type"    />
+        <result property="deviceInfo"    column="device_info"    />
+        <result property="locationTime"    column="location_time"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectSysUserLocationVo">
+        select id, user_id, latitude, longitude, altitude, speed, direction, accuracy, coordinate_type, device_info, location_time, create_time from sys_user_location
+    </sql>
+
+    <select id="selectSysUserLocationList" parameterType="SysUserLocation" resultMap="SysUserLocationResult">
+        <include refid="selectSysUserLocationVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="latitude != null "> and latitude = #{latitude}</if>
+            <if test="longitude != null "> and longitude = #{longitude}</if>
+            <if test="altitude != null "> and altitude = #{altitude}</if>
+            <if test="speed != null "> and speed = #{speed}</if>
+            <if test="direction != null "> and direction = #{direction}</if>
+            <if test="accuracy != null "> and accuracy = #{accuracy}</if>
+            <if test="coordinateType != null  and coordinateType != ''"> and coordinate_type = #{coordinateType}</if>
+            <if test="deviceInfo != null  and deviceInfo != ''"> and device_info = #{deviceInfo}</if>
+            <if test="locationTime != null "> and location_time = #{locationTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysUserLocationById" parameterType="Long" resultMap="SysUserLocationResult">
+        <include refid="selectSysUserLocationVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSysUserLocation" parameterType="SysUserLocation" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user_location
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="altitude != null">altitude,</if>
+            <if test="speed != null">speed,</if>
+            <if test="direction != null">direction,</if>
+            <if test="accuracy != null">accuracy,</if>
+            <if test="coordinateType != null">coordinate_type,</if>
+            <if test="deviceInfo != null">device_info,</if>
+            <if test="locationTime != null">location_time,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="altitude != null">#{altitude},</if>
+            <if test="speed != null">#{speed},</if>
+            <if test="direction != null">#{direction},</if>
+            <if test="accuracy != null">#{accuracy},</if>
+            <if test="coordinateType != null">#{coordinateType},</if>
+            <if test="deviceInfo != null">#{deviceInfo},</if>
+            <if test="locationTime != null">#{locationTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysUserLocation" parameterType="SysUserLocation">
+        update sys_user_location
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="altitude != null">altitude = #{altitude},</if>
+            <if test="speed != null">speed = #{speed},</if>
+            <if test="direction != null">direction = #{direction},</if>
+            <if test="accuracy != null">accuracy = #{accuracy},</if>
+            <if test="coordinateType != null">coordinate_type = #{coordinateType},</if>
+            <if test="deviceInfo != null">device_info = #{deviceInfo},</if>
+            <if test="locationTime != null">location_time = #{locationTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysUserLocationById" parameterType="Long">
+        delete from sys_user_location where id = #{id}
+    </delete>
+
+    <delete id="deleteSysUserLocationByIds" parameterType="String">
+        delete from sys_user_location where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

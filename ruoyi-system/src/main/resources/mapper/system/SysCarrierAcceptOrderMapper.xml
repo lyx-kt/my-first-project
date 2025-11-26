@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysCarrierAcceptOrderMapper">
+    
+    <resultMap type="SysCarrierAcceptOrder" id="SysCarrierAcceptOrderResult">
+        <result property="cargoInformation"    column="cargo_information"    />
+        <result property="releaseTime"    column="release_time"    />
+        <result property="NameofGoods"    column="Name_of_Goods"    />
+        <result property="numberGood"    column="number_good"    />
+        <result property="originAddress"    column="origin_address"    />
+        <result property="exitPort"    column="exit_port"    />
+        <result property="deliveryAddress"    column="delivery_address"    />
+        <result property="estimatedTime"    column="estimated_time"    />
+        <result property="cargoWeight"    column="cargo_weight"    />
+        <result property="cargoVolume"    column="cargo_volume"    />
+        <result property="packagingMethod"    column="packaging_method"    />
+    </resultMap>
+
+    <sql id="selectSysCarrierAcceptOrderVo">
+        select cargo_information, release_time, Name_of_Goods, number_good, origin_address, exit_port, delivery_address, estimated_time, cargo_weight, cargo_volume, packaging_method from sys_carrier_accept_order
+    </sql>
+
+    <select id="selectSysCarrierAcceptOrderList" parameterType="SysCarrierAcceptOrder" resultMap="SysCarrierAcceptOrderResult">
+        <include refid="selectSysCarrierAcceptOrderVo"/>
+        <where>  
+            <if test="releaseTime != null "> and release_time = #{releaseTime}</if>
+            <if test="NameofGoods != null  and NameofGoods != ''"> and Name_of_Goods = #{NameofGoods}</if>
+            <if test="numberGood != null "> and number_good = #{numberGood}</if>
+            <if test="originAddress != null  and originAddress != ''"> and origin_address = #{originAddress}</if>
+            <if test="exitPort != null  and exitPort != ''"> and exit_port = #{exitPort}</if>
+            <if test="deliveryAddress != null  and deliveryAddress != ''"> and delivery_address = #{deliveryAddress}</if>
+            <if test="estimatedTime != null "> and estimated_time = #{estimatedTime}</if>
+            <if test="cargoWeight != null  and cargoWeight != ''"> and cargo_weight = #{cargoWeight}</if>
+            <if test="cargoVolume != null  and cargoVolume != ''"> and cargo_volume = #{cargoVolume}</if>
+            <if test="packagingMethod != null  and packagingMethod != ''"> and packaging_method = #{packagingMethod}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysCarrierAcceptOrderByCargoInformation" parameterType="String" resultMap="SysCarrierAcceptOrderResult">
+        <include refid="selectSysCarrierAcceptOrderVo"/>
+        where cargo_information = #{cargoInformation}
+    </select>
+
+    <insert id="insertSysCarrierAcceptOrder" parameterType="SysCarrierAcceptOrder">
+        insert into sys_carrier_accept_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cargoInformation != null">cargo_information,</if>
+            <if test="releaseTime != null">release_time,</if>
+            <if test="NameofGoods != null and NameofGoods != ''">Name_of_Goods,</if>
+            <if test="numberGood != null">number_good,</if>
+            <if test="originAddress != null and originAddress != ''">origin_address,</if>
+            <if test="exitPort != null and exitPort != ''">exit_port,</if>
+            <if test="deliveryAddress != null and deliveryAddress != ''">delivery_address,</if>
+            <if test="estimatedTime != null">estimated_time,</if>
+            <if test="cargoWeight != null and cargoWeight != ''">cargo_weight,</if>
+            <if test="cargoVolume != null and cargoVolume != ''">cargo_volume,</if>
+            <if test="packagingMethod != null and packagingMethod != ''">packaging_method,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cargoInformation != null">#{cargoInformation},</if>
+            <if test="releaseTime != null">#{releaseTime},</if>
+            <if test="NameofGoods != null and NameofGoods != ''">#{NameofGoods},</if>
+            <if test="numberGood != null">#{numberGood},</if>
+            <if test="originAddress != null and originAddress != ''">#{originAddress},</if>
+            <if test="exitPort != null and exitPort != ''">#{exitPort},</if>
+            <if test="deliveryAddress != null and deliveryAddress != ''">#{deliveryAddress},</if>
+            <if test="estimatedTime != null">#{estimatedTime},</if>
+            <if test="cargoWeight != null and cargoWeight != ''">#{cargoWeight},</if>
+            <if test="cargoVolume != null and cargoVolume != ''">#{cargoVolume},</if>
+            <if test="packagingMethod != null and packagingMethod != ''">#{packagingMethod},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysCarrierAcceptOrder" parameterType="SysCarrierAcceptOrder">
+        update sys_carrier_accept_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="releaseTime != null">release_time = #{releaseTime},</if>
+            <if test="NameofGoods != null and NameofGoods != ''">Name_of_Goods = #{NameofGoods},</if>
+            <if test="numberGood != null">number_good = #{numberGood},</if>
+            <if test="originAddress != null and originAddress != ''">origin_address = #{originAddress},</if>
+            <if test="exitPort != null and exitPort != ''">exit_port = #{exitPort},</if>
+            <if test="deliveryAddress != null and deliveryAddress != ''">delivery_address = #{deliveryAddress},</if>
+            <if test="estimatedTime != null">estimated_time = #{estimatedTime},</if>
+            <if test="cargoWeight != null and cargoWeight != ''">cargo_weight = #{cargoWeight},</if>
+            <if test="cargoVolume != null and cargoVolume != ''">cargo_volume = #{cargoVolume},</if>
+            <if test="packagingMethod != null and packagingMethod != ''">packaging_method = #{packagingMethod},</if>
+        </trim>
+        where cargo_information = #{cargoInformation}
+    </update>
+
+    <delete id="deleteSysCarrierAcceptOrderByCargoInformation" parameterType="String">
+        delete from sys_carrier_accept_order where cargo_information = #{cargoInformation}
+    </delete>
+
+    <delete id="deleteSysCarrierAcceptOrderByCargoInformations" parameterType="String">
+        delete from sys_carrier_accept_order where cargo_information in 
+        <foreach item="cargoInformation" collection="array" open="(" separator="," close=")">
+            #{cargoInformation}
+        </foreach>
+    </delete>
+</mapper>

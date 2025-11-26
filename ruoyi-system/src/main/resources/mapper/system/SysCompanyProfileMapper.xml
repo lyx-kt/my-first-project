@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysCompanyProfileMapper">
+    
+    <resultMap type="SysCompanyProfile" id="SysCompanyProfileResult">
+        <result property="companyProfile"    column="company_profile"    />
+        <result property="companyPictureUpload"    column="company_picture_upload"    />
+        <result property="serviceItemStandardBz"    column="service_item_standard_bz"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysCompanyProfileVo">
+        select company_profile, company_picture_upload, service_item_standard_bz, create_time, date_time, create_by, update_by, remark from sys_company_profile
+    </sql>
+
+    <select id="selectSysCompanyProfileList" parameterType="SysCompanyProfile" resultMap="SysCompanyProfileResult">
+        <include refid="selectSysCompanyProfileVo"/>
+        <where>  
+            <if test="companyPictureUpload != null  and companyPictureUpload != ''"> and company_picture_upload = #{companyPictureUpload}</if>
+            <if test="serviceItemStandardBz != null  and serviceItemStandardBz != ''"> and service_item_standard_bz = #{serviceItemStandardBz}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="dateTime != null "> and date_time = #{dateTime}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="updateBy != null  and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="remark != null  and remark != ''"> and remark = #{remark}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysCompanyProfileByCompanyProfile" parameterType="String" resultMap="SysCompanyProfileResult">
+        <include refid="selectSysCompanyProfileVo"/>
+        where company_profile = #{companyProfile}
+    </select>
+
+    <insert id="insertSysCompanyProfile" parameterType="SysCompanyProfile">
+        insert into sys_company_profile
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyProfile != null">company_profile,</if>
+            <if test="companyPictureUpload != null">company_picture_upload,</if>
+            <if test="serviceItemStandardBz != null">service_item_standard_bz,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyProfile != null">#{companyProfile},</if>
+            <if test="companyPictureUpload != null">#{companyPictureUpload},</if>
+            <if test="serviceItemStandardBz != null">#{serviceItemStandardBz},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysCompanyProfile" parameterType="SysCompanyProfile">
+        update sys_company_profile
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="companyPictureUpload != null">company_picture_upload = #{companyPictureUpload},</if>
+            <if test="serviceItemStandardBz != null">service_item_standard_bz = #{serviceItemStandardBz},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where company_profile = #{companyProfile}
+    </update>
+
+    <delete id="deleteSysCompanyProfileByCompanyProfile" parameterType="String">
+        delete from sys_company_profile where company_profile = #{companyProfile}
+    </delete>
+
+    <delete id="deleteSysCompanyProfileByCompanyProfiles" parameterType="String">
+        delete from sys_company_profile where company_profile in 
+        <foreach item="companyProfile" collection="array" open="(" separator="," close=")">
+            #{companyProfile}
+        </foreach>
+    </delete>
+</mapper>

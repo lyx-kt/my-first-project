@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysCarrierInformationMapper">
+    
+    <resultMap type="SysCarrierInformation" id="SysCarrierInformationResult">
+        <result property="carrierNamecarrier"    column="carrier_namecarrier"    />
+        <result property="emailcontactNumber"    column="emailcontact_number"    />
+        <result property="chinacontactNumber"    column="chinacontact_number"    />
+        <result property="localdriverPassportvehicle"    column="localdriver_passportvehicle"    />
+        <result property="customsRegistration"    column="customs_registration"    />
+        <result property="certificatevehicleRegistration"    column="certificatevehicle_registration"    />
+        <result property="certificate"    column="certificate"    />
+        <result property="internationalMotoVehicleTransport"    column="international_moto_vehicle_transport"    />
+        <result property="permitvehiclePhotos"    column="permitvehicle_photos"    />
+        <result property="photosexpressCard"    column="photosexpress_card"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysCarrierInformationVo">
+        select carrier_namecarrier, emailcontact_number, chinacontact_number, localdriver_passportvehicle, customs_registration, certificatevehicle_registration, certificate, international_moto_vehicle_transport, permitvehicle_photos, photosexpress_card, create_time, date_time, create_by, update_by, remark from sys_carrier_information
+    </sql>
+
+    <select id="selectSysCarrierInformationList" parameterType="SysCarrierInformation" resultMap="SysCarrierInformationResult">
+        <include refid="selectSysCarrierInformationVo"/>
+        <where>  
+            <if test="emailcontactNumber != null  and emailcontactNumber != ''"> and emailcontact_number = #{emailcontactNumber}</if>
+            <if test="chinacontactNumber != null "> and chinacontact_number = #{chinacontactNumber}</if>
+            <if test="localdriverPassportvehicle != null "> and localdriver_passportvehicle = #{localdriverPassportvehicle}</if>
+            <if test="customsRegistration != null  and customsRegistration != ''"> and customs_registration = #{customsRegistration}</if>
+            <if test="certificatevehicleRegistration != null  and certificatevehicleRegistration != ''"> and certificatevehicle_registration = #{certificatevehicleRegistration}</if>
+            <if test="certificate != null  and certificate != ''"> and certificate = #{certificate}</if>
+            <if test="internationalMotoVehicleTransport != null  and internationalMotoVehicleTransport != ''"> and international_moto_vehicle_transport = #{internationalMotoVehicleTransport}</if>
+            <if test="permitvehiclePhotos != null  and permitvehiclePhotos != ''"> and permitvehicle_photos = #{permitvehiclePhotos}</if>
+            <if test="photosexpressCard != null  and photosexpressCard != ''"> and photosexpress_card = #{photosexpressCard}</if>
+            <if test="dateTime != null "> and date_time = #{dateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysCarrierInformationByCarrierNamecarrier" parameterType="String" resultMap="SysCarrierInformationResult">
+        <include refid="selectSysCarrierInformationVo"/>
+        where carrier_namecarrier = #{carrierNamecarrier}
+    </select>
+
+    <insert id="insertSysCarrierInformation" parameterType="SysCarrierInformation">
+        insert into sys_carrier_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="carrierNamecarrier != null and carrierNamecarrier != ''">carrier_namecarrier,</if>
+            <if test="emailcontactNumber != null and emailcontactNumber != ''">emailcontact_number,</if>
+            <if test="chinacontactNumber != null">chinacontact_number,</if>
+            <if test="localdriverPassportvehicle != null">localdriver_passportvehicle,</if>
+            <if test="customsRegistration != null">customs_registration,</if>
+            <if test="certificatevehicleRegistration != null">certificatevehicle_registration,</if>
+            <if test="certificate != null">certificate,</if>
+            <if test="internationalMotoVehicleTransport != null">international_moto_vehicle_transport,</if>
+            <if test="permitvehiclePhotos != null">permitvehicle_photos,</if>
+            <if test="photosexpressCard != null">photosexpress_card,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="carrierNamecarrier != null and carrierNamecarrier != ''">#{carrierNamecarrier},</if>
+            <if test="emailcontactNumber != null and emailcontactNumber != ''">#{emailcontactNumber},</if>
+            <if test="chinacontactNumber != null">#{chinacontactNumber},</if>
+            <if test="localdriverPassportvehicle != null">#{localdriverPassportvehicle},</if>
+            <if test="customsRegistration != null">#{customsRegistration},</if>
+            <if test="certificatevehicleRegistration != null">#{certificatevehicleRegistration},</if>
+            <if test="certificate != null">#{certificate},</if>
+            <if test="internationalMotoVehicleTransport != null">#{internationalMotoVehicleTransport},</if>
+            <if test="permitvehiclePhotos != null">#{permitvehiclePhotos},</if>
+            <if test="photosexpressCard != null">#{photosexpressCard},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysCarrierInformation" parameterType="SysCarrierInformation">
+        update sys_carrier_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="emailcontactNumber != null and emailcontactNumber != ''">emailcontact_number = #{emailcontactNumber},</if>
+            <if test="chinacontactNumber != null">chinacontact_number = #{chinacontactNumber},</if>
+            <if test="localdriverPassportvehicle != null">localdriver_passportvehicle = #{localdriverPassportvehicle},</if>
+            <if test="customsRegistration != null">customs_registration = #{customsRegistration},</if>
+            <if test="certificatevehicleRegistration != null">certificatevehicle_registration = #{certificatevehicleRegistration},</if>
+            <if test="certificate != null">certificate = #{certificate},</if>
+            <if test="internationalMotoVehicleTransport != null">international_moto_vehicle_transport = #{internationalMotoVehicleTransport},</if>
+            <if test="permitvehiclePhotos != null">permitvehicle_photos = #{permitvehiclePhotos},</if>
+            <if test="photosexpressCard != null">photosexpress_card = #{photosexpressCard},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where carrier_namecarrier = #{carrierNamecarrier}
+    </update>
+
+    <delete id="deleteSysCarrierInformationByCarrierNamecarrier" parameterType="String">
+        delete from sys_carrier_information where carrier_namecarrier = #{carrierNamecarrier}
+    </delete>
+
+    <delete id="deleteSysCarrierInformationByCarrierNamecarriers" parameterType="String">
+        delete from sys_carrier_information where carrier_namecarrier in 
+        <foreach item="carrierNamecarrier" collection="array" open="(" separator="," close=")">
+            #{carrierNamecarrier}
+        </foreach>
+    </delete>
+</mapper>

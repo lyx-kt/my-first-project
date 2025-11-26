@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysCustomsDeclarationMapper">
+    
+    <resultMap type="SysCustomsDeclaration" id="SysCustomsDeclarationResult">
+        <result property="carrierName"    column="carrier_name"    />
+        <result property="carrierDomesticPhone"    column="carrier_domestic_phone"    />
+        <result property="carrierOverseasPhone"    column="carrier_overseas_phone"    />
+        <result property="confirmedReportType"    column="confirmed_report_type"    />
+        <result property="licensePlateNumber"    column="license_plate_number"    />
+        <result property="registeredCompanyName"    column="registered_company_name"    />
+        <result property="registeredCompanyEmail"    column="registered_company_email"    />
+        <result property="registeredCompanyPhone"    column="registered_company_phone"    />
+        <result property="americanExpresCard"    column="american_expres_card"    />
+        <result property="vehicleRegistrationCertificate"    column="vehicle_registration_certificate"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysCustomsDeclarationVo">
+        select carrier_name, carrier_domestic_phone, carrier_overseas_phone, confirmed_report_type, license_plate_number, registered_company_name, registered_company_email, registered_company_phone, american_expres_card, vehicle_registration_certificate, create_time, date_time, create_by, update_by, remark from sys_customs_declaration
+    </sql>
+
+    <select id="selectSysCustomsDeclarationList" parameterType="SysCustomsDeclaration" resultMap="SysCustomsDeclarationResult">
+        <include refid="selectSysCustomsDeclarationVo"/>
+        <where>  
+            <if test="carrierDomesticPhone != null  and carrierDomesticPhone != ''"> and carrier_domestic_phone = #{carrierDomesticPhone}</if>
+            <if test="carrierOverseasPhone != null  and carrierOverseasPhone != ''"> and carrier_overseas_phone = #{carrierOverseasPhone}</if>
+            <if test="confirmedReportType != null  and confirmedReportType != ''"> and confirmed_report_type = #{confirmedReportType}</if>
+            <if test="licensePlateNumber != null  and licensePlateNumber != ''"> and license_plate_number = #{licensePlateNumber}</if>
+            <if test="registeredCompanyName != null  and registeredCompanyName != ''"> and registered_company_name like concat('%', #{registeredCompanyName}, '%')</if>
+            <if test="registeredCompanyEmail != null  and registeredCompanyEmail != ''"> and registered_company_email = #{registeredCompanyEmail}</if>
+            <if test="registeredCompanyPhone != null  and registeredCompanyPhone != ''"> and registered_company_phone = #{registeredCompanyPhone}</if>
+            <if test="americanExpresCard != null  and americanExpresCard != ''"> and american_expres_card = #{americanExpresCard}</if>
+            <if test="vehicleRegistrationCertificate != null  and vehicleRegistrationCertificate != ''"> and vehicle_registration_certificate = #{vehicleRegistrationCertificate}</if>
+            <if test="dateTime != null "> and date_time = #{dateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysCustomsDeclarationByCarrierName" parameterType="String" resultMap="SysCustomsDeclarationResult">
+        <include refid="selectSysCustomsDeclarationVo"/>
+        where carrier_name = #{carrierName}
+    </select>
+
+    <insert id="insertSysCustomsDeclaration" parameterType="SysCustomsDeclaration">
+        insert into sys_customs_declaration
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="carrierName != null">carrier_name,</if>
+            <if test="carrierDomesticPhone != null and carrierDomesticPhone != ''">carrier_domestic_phone,</if>
+            <if test="carrierOverseasPhone != null and carrierOverseasPhone != ''">carrier_overseas_phone,</if>
+            <if test="confirmedReportType != null and confirmedReportType != ''">confirmed_report_type,</if>
+            <if test="licensePlateNumber != null and licensePlateNumber != ''">license_plate_number,</if>
+            <if test="registeredCompanyName != null and registeredCompanyName != ''">registered_company_name,</if>
+            <if test="registeredCompanyEmail != null and registeredCompanyEmail != ''">registered_company_email,</if>
+            <if test="registeredCompanyPhone != null and registeredCompanyPhone != ''">registered_company_phone,</if>
+            <if test="americanExpresCard != null">american_expres_card,</if>
+            <if test="vehicleRegistrationCertificate != null">vehicle_registration_certificate,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="carrierName != null">#{carrierName},</if>
+            <if test="carrierDomesticPhone != null and carrierDomesticPhone != ''">#{carrierDomesticPhone},</if>
+            <if test="carrierOverseasPhone != null and carrierOverseasPhone != ''">#{carrierOverseasPhone},</if>
+            <if test="confirmedReportType != null and confirmedReportType != ''">#{confirmedReportType},</if>
+            <if test="licensePlateNumber != null and licensePlateNumber != ''">#{licensePlateNumber},</if>
+            <if test="registeredCompanyName != null and registeredCompanyName != ''">#{registeredCompanyName},</if>
+            <if test="registeredCompanyEmail != null and registeredCompanyEmail != ''">#{registeredCompanyEmail},</if>
+            <if test="registeredCompanyPhone != null and registeredCompanyPhone != ''">#{registeredCompanyPhone},</if>
+            <if test="americanExpresCard != null">#{americanExpresCard},</if>
+            <if test="vehicleRegistrationCertificate != null">#{vehicleRegistrationCertificate},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysCustomsDeclaration" parameterType="SysCustomsDeclaration">
+        update sys_customs_declaration
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="carrierDomesticPhone != null and carrierDomesticPhone != ''">carrier_domestic_phone = #{carrierDomesticPhone},</if>
+            <if test="carrierOverseasPhone != null and carrierOverseasPhone != ''">carrier_overseas_phone = #{carrierOverseasPhone},</if>
+            <if test="confirmedReportType != null and confirmedReportType != ''">confirmed_report_type = #{confirmedReportType},</if>
+            <if test="licensePlateNumber != null and licensePlateNumber != ''">license_plate_number = #{licensePlateNumber},</if>
+            <if test="registeredCompanyName != null and registeredCompanyName != ''">registered_company_name = #{registeredCompanyName},</if>
+            <if test="registeredCompanyEmail != null and registeredCompanyEmail != ''">registered_company_email = #{registeredCompanyEmail},</if>
+            <if test="registeredCompanyPhone != null and registeredCompanyPhone != ''">registered_company_phone = #{registeredCompanyPhone},</if>
+            <if test="americanExpresCard != null">american_expres_card = #{americanExpresCard},</if>
+            <if test="vehicleRegistrationCertificate != null">vehicle_registration_certificate = #{vehicleRegistrationCertificate},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where carrier_name = #{carrierName}
+    </update>
+
+    <delete id="deleteSysCustomsDeclarationByCarrierName" parameterType="String">
+        delete from sys_customs_declaration where carrier_name = #{carrierName}
+    </delete>
+
+    <delete id="deleteSysCustomsDeclarationByCarrierNames" parameterType="String">
+        delete from sys_customs_declaration where carrier_name in 
+        <foreach item="carrierName" collection="array" open="(" separator="," close=")">
+            #{carrierName}
+        </foreach>
+    </delete>
+</mapper>

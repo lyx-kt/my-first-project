@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysCargoInformationMapper">
+    
+    <resultMap type="SysCargoInformation" id="SysCargoInformationResult">
+        <result property="orderNumber"    column="order_number"    />
+        <result property="releaseTime"    column="release_time"    />
+        <result property="originAddress"    column="origin_address"    />
+        <result property="exitPort"    column="exit_port"    />
+        <result property="unloadingAddress"    column="unloading_address"    />
+        <result property="portEntry"    column="port_entry"    />
+        <result property="estimatedTimeArrival"    column="estimated_time_arrival"    />
+        <result property="goodName"    column="good_name"    />
+        <result property="goodWeight"    column="good_weight"    />
+        <result property="goodVolume"    column="good_volume"    />
+        <result property="packagingMethod"    column="packaging_method"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysCargoInformationVo">
+        select order_number, release_time, origin_address, exit_port, unloading_address, port_entry, estimated_time_arrival, good_name, good_weight, good_volume, packaging_method, create_time, date_time, create_by, update_by, remark from sys_cargo_information
+    </sql>
+
+    <select id="selectSysCargoInformationList" parameterType="SysCargoInformation" resultMap="SysCargoInformationResult">
+        <include refid="selectSysCargoInformationVo"/>
+        <where>  
+            <if test="releaseTime != null "> and release_time = #{releaseTime}</if>
+            <if test="originAddress != null  and originAddress != ''"> and origin_address = #{originAddress}</if>
+            <if test="exitPort != null  and exitPort != ''"> and exit_port = #{exitPort}</if>
+            <if test="unloadingAddress != null  and unloadingAddress != ''"> and unloading_address = #{unloadingAddress}</if>
+            <if test="portEntry != null  and portEntry != ''"> and port_entry = #{portEntry}</if>
+            <if test="estimatedTimeArrival != null "> and estimated_time_arrival = #{estimatedTimeArrival}</if>
+            <if test="goodName != null  and goodName != ''"> and good_name like concat('%', #{goodName}, '%')</if>
+            <if test="goodWeight != null "> and good_weight = #{goodWeight}</if>
+            <if test="goodVolume != null "> and good_volume = #{goodVolume}</if>
+            <if test="packagingMethod != null  and packagingMethod != ''"> and packaging_method = #{packagingMethod}</if>
+            <if test="dateTime != null "> and date_time = #{dateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysCargoInformationByOrderNumber" parameterType="String" resultMap="SysCargoInformationResult">
+        <include refid="selectSysCargoInformationVo"/>
+        where order_number = #{orderNumber}
+    </select>
+
+    <insert id="insertSysCargoInformation" parameterType="SysCargoInformation">
+        insert into sys_cargo_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderNumber != null">order_number,</if>
+            <if test="releaseTime != null">release_time,</if>
+            <if test="originAddress != null and originAddress != ''">origin_address,</if>
+            <if test="exitPort != null and exitPort != ''">exit_port,</if>
+            <if test="unloadingAddress != null and unloadingAddress != ''">unloading_address,</if>
+            <if test="portEntry != null and portEntry != ''">port_entry,</if>
+            <if test="estimatedTimeArrival != null">estimated_time_arrival,</if>
+            <if test="goodName != null and goodName != ''">good_name,</if>
+            <if test="goodWeight != null">good_weight,</if>
+            <if test="goodVolume != null">good_volume,</if>
+            <if test="packagingMethod != null and packagingMethod != ''">packaging_method,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderNumber != null">#{orderNumber},</if>
+            <if test="releaseTime != null">#{releaseTime},</if>
+            <if test="originAddress != null and originAddress != ''">#{originAddress},</if>
+            <if test="exitPort != null and exitPort != ''">#{exitPort},</if>
+            <if test="unloadingAddress != null and unloadingAddress != ''">#{unloadingAddress},</if>
+            <if test="portEntry != null and portEntry != ''">#{portEntry},</if>
+            <if test="estimatedTimeArrival != null">#{estimatedTimeArrival},</if>
+            <if test="goodName != null and goodName != ''">#{goodName},</if>
+            <if test="goodWeight != null">#{goodWeight},</if>
+            <if test="goodVolume != null">#{goodVolume},</if>
+            <if test="packagingMethod != null and packagingMethod != ''">#{packagingMethod},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysCargoInformation" parameterType="SysCargoInformation">
+        update sys_cargo_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="releaseTime != null">release_time = #{releaseTime},</if>
+            <if test="originAddress != null and originAddress != ''">origin_address = #{originAddress},</if>
+            <if test="exitPort != null and exitPort != ''">exit_port = #{exitPort},</if>
+            <if test="unloadingAddress != null and unloadingAddress != ''">unloading_address = #{unloadingAddress},</if>
+            <if test="portEntry != null and portEntry != ''">port_entry = #{portEntry},</if>
+            <if test="estimatedTimeArrival != null">estimated_time_arrival = #{estimatedTimeArrival},</if>
+            <if test="goodName != null and goodName != ''">good_name = #{goodName},</if>
+            <if test="goodWeight != null">good_weight = #{goodWeight},</if>
+            <if test="goodVolume != null">good_volume = #{goodVolume},</if>
+            <if test="packagingMethod != null and packagingMethod != ''">packaging_method = #{packagingMethod},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where order_number = #{orderNumber}
+    </update>
+
+    <delete id="deleteSysCargoInformationByOrderNumber" parameterType="String">
+        delete from sys_cargo_information where order_number = #{orderNumber}
+    </delete>
+
+    <delete id="deleteSysCargoInformationByOrderNumbers" parameterType="String">
+        delete from sys_cargo_information where order_number in 
+        <foreach item="orderNumber" collection="array" open="(" separator="," close=")">
+            #{orderNumber}
+        </foreach>
+    </delete>
+</mapper>

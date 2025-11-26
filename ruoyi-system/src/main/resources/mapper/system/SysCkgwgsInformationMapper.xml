@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysCkgwgsInformationMapper">
+    
+    <resultMap type="SysCkgwgsInformation" id="SysCkgwgsInformationResult">
+        <result property="countryGs"    column="country_gs"    />
+        <result property="kouan"    column="kouan"    />
+        <result property="comapnyName"    column="comapny_name"    />
+        <result property="compamyNumber"    column="compamy_number"    />
+        <result property="companyAddress"    column="company_address"    />
+        <result property="fwspGoodType"    column="fwsp_good_type"    />
+        <result property="frName"    column="fr_name"    />
+        <result property="frNumber"    column="fr_number"    />
+        <result property="lxrName"    column="lxr_name"    />
+        <result property="lxrNumber"    column="lxr_number"    />
+        <result property="cpmpanyPicture"    column="cpmpany_picture"    />
+    </resultMap>
+
+    <sql id="selectSysCkgwgsInformationVo">
+        select country_gs, kouan, comapny_name, compamy_number, company_address, fwsp_good_type, fr_name, fr_number, lxr_name, lxr_number, cpmpany_picture from sys_ckgwgs_information
+    </sql>
+
+    <select id="selectSysCkgwgsInformationList" parameterType="SysCkgwgsInformation" resultMap="SysCkgwgsInformationResult">
+        <include refid="selectSysCkgwgsInformationVo"/>
+        <where>  
+            <if test="kouan != null  and kouan != ''"> and kouan = #{kouan}</if>
+            <if test="comapnyName != null  and comapnyName != ''"> and comapny_name like concat('%', #{comapnyName}, '%')</if>
+            <if test="compamyNumber != null  and compamyNumber != ''"> and compamy_number = #{compamyNumber}</if>
+            <if test="companyAddress != null  and companyAddress != ''"> and company_address = #{companyAddress}</if>
+            <if test="frName != null  and frName != ''"> and fr_name like concat('%', #{frName}, '%')</if>
+            <if test="frNumber != null  and frNumber != ''"> and fr_number = #{frNumber}</if>
+            <if test="lxrName != null  and lxrName != ''"> and lxr_name like concat('%', #{lxrName}, '%')</if>
+            <if test="lxrNumber != null  and lxrNumber != ''"> and lxr_number = #{lxrNumber}</if>
+            <if test="cpmpanyPicture != null  and cpmpanyPicture != ''"> and cpmpany_picture = #{cpmpanyPicture}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysCkgwgsInformationByCountryGs" parameterType="String" resultMap="SysCkgwgsInformationResult">
+        <include refid="selectSysCkgwgsInformationVo"/>
+        where country_gs = #{countryGs}
+    </select>
+
+    <insert id="insertSysCkgwgsInformation" parameterType="SysCkgwgsInformation">
+        insert into sys_ckgwgs_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="countryGs != null">country_gs,</if>
+            <if test="kouan != null and kouan != ''">kouan,</if>
+            <if test="comapnyName != null and comapnyName != ''">comapny_name,</if>
+            <if test="compamyNumber != null and compamyNumber != ''">compamy_number,</if>
+            <if test="companyAddress != null and companyAddress != ''">company_address,</if>
+            <if test="fwspGoodType != null">fwsp_good_type,</if>
+            <if test="frName != null and frName != ''">fr_name,</if>
+            <if test="frNumber != null and frNumber != ''">fr_number,</if>
+            <if test="lxrName != null and lxrName != ''">lxr_name,</if>
+            <if test="lxrNumber != null and lxrNumber != ''">lxr_number,</if>
+            <if test="cpmpanyPicture != null and cpmpanyPicture != ''">cpmpany_picture,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="countryGs != null">#{countryGs},</if>
+            <if test="kouan != null and kouan != ''">#{kouan},</if>
+            <if test="comapnyName != null and comapnyName != ''">#{comapnyName},</if>
+            <if test="compamyNumber != null and compamyNumber != ''">#{compamyNumber},</if>
+            <if test="companyAddress != null and companyAddress != ''">#{companyAddress},</if>
+            <if test="fwspGoodType != null">#{fwspGoodType},</if>
+            <if test="frName != null and frName != ''">#{frName},</if>
+            <if test="frNumber != null and frNumber != ''">#{frNumber},</if>
+            <if test="lxrName != null and lxrName != ''">#{lxrName},</if>
+            <if test="lxrNumber != null and lxrNumber != ''">#{lxrNumber},</if>
+            <if test="cpmpanyPicture != null and cpmpanyPicture != ''">#{cpmpanyPicture},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysCkgwgsInformation" parameterType="SysCkgwgsInformation">
+        update sys_ckgwgs_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="kouan != null and kouan != ''">kouan = #{kouan},</if>
+            <if test="comapnyName != null and comapnyName != ''">comapny_name = #{comapnyName},</if>
+            <if test="compamyNumber != null and compamyNumber != ''">compamy_number = #{compamyNumber},</if>
+            <if test="companyAddress != null and companyAddress != ''">company_address = #{companyAddress},</if>
+            <if test="fwspGoodType != null">fwsp_good_type = #{fwspGoodType},</if>
+            <if test="frName != null and frName != ''">fr_name = #{frName},</if>
+            <if test="frNumber != null and frNumber != ''">fr_number = #{frNumber},</if>
+            <if test="lxrName != null and lxrName != ''">lxr_name = #{lxrName},</if>
+            <if test="lxrNumber != null and lxrNumber != ''">lxr_number = #{lxrNumber},</if>
+            <if test="cpmpanyPicture != null and cpmpanyPicture != ''">cpmpany_picture = #{cpmpanyPicture},</if>
+        </trim>
+        where country_gs = #{countryGs}
+    </update>
+
+    <delete id="deleteSysCkgwgsInformationByCountryGs" parameterType="String">
+        delete from sys_ckgwgs_information where country_gs = #{countryGs}
+    </delete>
+
+    <delete id="deleteSysCkgwgsInformationByCountryGss" parameterType="String">
+        delete from sys_ckgwgs_information where country_gs in 
+        <foreach item="countryGs" collection="array" open="(" separator="," close=")">
+            #{countryGs}
+        </foreach>
+    </delete>
+</mapper>

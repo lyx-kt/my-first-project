@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysCyrInformationMapper">
+    
+    <resultMap type="SysCyrInformation" id="SysCyrInformationResult">
+        <result property="ccountry"    column="ccountry"    />
+        <result property="cname"    column="cname"    />
+        <result property="cnumber"    column="cnumber"    />
+        <result property="ctype"    column="ctype"    />
+        <result property="czjNumbvber"    column="czj_numbvber"    />
+        <result property="czjZfm"    column="czj_zfm"    />
+    </resultMap>
+
+    <sql id="selectSysCyrInformationVo">
+        select ccountry, cname, cnumber, ctype, czj_numbvber, czj_zfm from sys_cyr_information
+    </sql>
+
+    <select id="selectSysCyrInformationList" parameterType="SysCyrInformation" resultMap="SysCyrInformationResult">
+        <include refid="selectSysCyrInformationVo"/>
+        <where>  
+            <if test="cname != null  and cname != ''"> and cname like concat('%', #{cname}, '%')</if>
+            <if test="cnumber != null  and cnumber != ''"> and cnumber = #{cnumber}</if>
+            <if test="ctype != null  and ctype != ''"> and ctype = #{ctype}</if>
+            <if test="czjNumbvber != null  and czjNumbvber != ''"> and czj_numbvber = #{czjNumbvber}</if>
+            <if test="czjZfm != null  and czjZfm != ''"> and czj_zfm = #{czjZfm}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysCyrInformationByCcountry" parameterType="String" resultMap="SysCyrInformationResult">
+        <include refid="selectSysCyrInformationVo"/>
+        where ccountry = #{ccountry}
+    </select>
+
+    <insert id="insertSysCyrInformation" parameterType="SysCyrInformation">
+        insert into sys_cyr_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ccountry != null">ccountry,</if>
+            <if test="cname != null and cname != ''">cname,</if>
+            <if test="cnumber != null and cnumber != ''">cnumber,</if>
+            <if test="ctype != null and ctype != ''">ctype,</if>
+            <if test="czjNumbvber != null and czjNumbvber != ''">czj_numbvber,</if>
+            <if test="czjZfm != null and czjZfm != ''">czj_zfm,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ccountry != null">#{ccountry},</if>
+            <if test="cname != null and cname != ''">#{cname},</if>
+            <if test="cnumber != null and cnumber != ''">#{cnumber},</if>
+            <if test="ctype != null and ctype != ''">#{ctype},</if>
+            <if test="czjNumbvber != null and czjNumbvber != ''">#{czjNumbvber},</if>
+            <if test="czjZfm != null and czjZfm != ''">#{czjZfm},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysCyrInformation" parameterType="SysCyrInformation">
+        update sys_cyr_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cname != null and cname != ''">cname = #{cname},</if>
+            <if test="cnumber != null and cnumber != ''">cnumber = #{cnumber},</if>
+            <if test="ctype != null and ctype != ''">ctype = #{ctype},</if>
+            <if test="czjNumbvber != null and czjNumbvber != ''">czj_numbvber = #{czjNumbvber},</if>
+            <if test="czjZfm != null and czjZfm != ''">czj_zfm = #{czjZfm},</if>
+        </trim>
+        where ccountry = #{ccountry}
+    </update>
+
+    <delete id="deleteSysCyrInformationByCcountry" parameterType="String">
+        delete from sys_cyr_information where ccountry = #{ccountry}
+    </delete>
+
+    <delete id="deleteSysCyrInformationByCcountrys" parameterType="String">
+        delete from sys_cyr_information where ccountry in 
+        <foreach item="ccountry" collection="array" open="(" separator="," close=")">
+            #{ccountry}
+        </foreach>
+    </delete>
+</mapper>

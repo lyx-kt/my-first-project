@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysEditInformationMapper">
+    
+    <resultMap type="SysEditInformation" id="SysEditInformationResult">
+        <result property="countryId"    column="country_id"    />
+        <result property="exitPort"    column="exit_port"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="companyDaima"    column="company_daima"    />
+        <result property="companyAddress"    column="company_address"    />
+        <result property="frName"    column="fr_name"    />
+        <result property="frNumber"    column="fr_number"    />
+        <result property="lxrName"    column="lxr_name"    />
+        <result property="lxrNumber"    column="lxr_number"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysEditInformationVo">
+        select country_id, exit_port, company_name, company_daima, company_address, fr_name, fr_number, lxr_name, lxr_number, create_time, date_time, create_by, update_by, remark from sys_edit_information
+    </sql>
+
+    <select id="selectSysEditInformationList" parameterType="SysEditInformation" resultMap="SysEditInformationResult">
+        <include refid="selectSysEditInformationVo"/>
+        <where>  
+            <if test="exitPort != null  and exitPort != ''"> and exit_port = #{exitPort}</if>
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+            <if test="companyDaima != null "> and company_daima = #{companyDaima}</if>
+            <if test="companyAddress != null  and companyAddress != ''"> and company_address = #{companyAddress}</if>
+            <if test="frName != null  and frName != ''"> and fr_name like concat('%', #{frName}, '%')</if>
+            <if test="frNumber != null  and frNumber != ''"> and fr_number = #{frNumber}</if>
+            <if test="lxrName != null  and lxrName != ''"> and lxr_name like concat('%', #{lxrName}, '%')</if>
+            <if test="lxrNumber != null  and lxrNumber != ''"> and lxr_number = #{lxrNumber}</if>
+            <if test="dateTime != null "> and date_time = #{dateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysEditInformationByCountryId" parameterType="String" resultMap="SysEditInformationResult">
+        <include refid="selectSysEditInformationVo"/>
+        where country_id = #{countryId}
+    </select>
+
+    <insert id="insertSysEditInformation" parameterType="SysEditInformation">
+        insert into sys_edit_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="countryId != null">country_id,</if>
+            <if test="exitPort != null and exitPort != ''">exit_port,</if>
+            <if test="companyName != null and companyName != ''">company_name,</if>
+            <if test="companyDaima != null">company_daima,</if>
+            <if test="companyAddress != null and companyAddress != ''">company_address,</if>
+            <if test="frName != null and frName != ''">fr_name,</if>
+            <if test="frNumber != null and frNumber != ''">fr_number,</if>
+            <if test="lxrName != null and lxrName != ''">lxr_name,</if>
+            <if test="lxrNumber != null and lxrNumber != ''">lxr_number,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="countryId != null">#{countryId},</if>
+            <if test="exitPort != null and exitPort != ''">#{exitPort},</if>
+            <if test="companyName != null and companyName != ''">#{companyName},</if>
+            <if test="companyDaima != null">#{companyDaima},</if>
+            <if test="companyAddress != null and companyAddress != ''">#{companyAddress},</if>
+            <if test="frName != null and frName != ''">#{frName},</if>
+            <if test="frNumber != null and frNumber != ''">#{frNumber},</if>
+            <if test="lxrName != null and lxrName != ''">#{lxrName},</if>
+            <if test="lxrNumber != null and lxrNumber != ''">#{lxrNumber},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysEditInformation" parameterType="SysEditInformation">
+        update sys_edit_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="exitPort != null and exitPort != ''">exit_port = #{exitPort},</if>
+            <if test="companyName != null and companyName != ''">company_name = #{companyName},</if>
+            <if test="companyDaima != null">company_daima = #{companyDaima},</if>
+            <if test="companyAddress != null and companyAddress != ''">company_address = #{companyAddress},</if>
+            <if test="frName != null and frName != ''">fr_name = #{frName},</if>
+            <if test="frNumber != null and frNumber != ''">fr_number = #{frNumber},</if>
+            <if test="lxrName != null and lxrName != ''">lxr_name = #{lxrName},</if>
+            <if test="lxrNumber != null and lxrNumber != ''">lxr_number = #{lxrNumber},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where country_id = #{countryId}
+    </update>
+
+    <delete id="deleteSysEditInformationByCountryId" parameterType="String">
+        delete from sys_edit_information where country_id = #{countryId}
+    </delete>
+
+    <delete id="deleteSysEditInformationByCountryIds" parameterType="String">
+        delete from sys_edit_information where country_id in 
+        <foreach item="countryId" collection="array" open="(" separator="," close=")">
+            #{countryId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysFyrInformationMapper">
+    
+    <resultMap type="SysFyrInformation" id="SysFyrInformationResult">
+        <result property="fcountry"    column="fcountry"    />
+        <result property="fname"    column="fname"    />
+        <result property="fnumber"    column="fnumber"    />
+        <result property="ftype"    column="ftype"    />
+        <result property="fzjNumbvber"    column="fzj_numbvber"    />
+        <result property="fzjZfm"    column="fzj_zfm"    />
+    </resultMap>
+
+    <sql id="selectSysFyrInformationVo">
+        select fcountry, fname, fnumber, ftype, fzj_numbvber, fzj_zfm from sys_fyr_information
+    </sql>
+
+    <select id="selectSysFyrInformationList" parameterType="SysFyrInformation" resultMap="SysFyrInformationResult">
+        <include refid="selectSysFyrInformationVo"/>
+        <where>  
+            <if test="fname != null  and fname != ''"> and fname like concat('%', #{fname}, '%')</if>
+            <if test="fnumber != null  and fnumber != ''"> and fnumber = #{fnumber}</if>
+            <if test="ftype != null  and ftype != ''"> and ftype = #{ftype}</if>
+            <if test="fzjNumbvber != null  and fzjNumbvber != ''"> and fzj_numbvber = #{fzjNumbvber}</if>
+            <if test="fzjZfm != null  and fzjZfm != ''"> and fzj_zfm = #{fzjZfm}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysFyrInformationByFcountry" parameterType="String" resultMap="SysFyrInformationResult">
+        <include refid="selectSysFyrInformationVo"/>
+        where fcountry = #{fcountry}
+    </select>
+
+    <insert id="insertSysFyrInformation" parameterType="SysFyrInformation">
+        insert into sys_fyr_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fcountry != null">fcountry,</if>
+            <if test="fname != null and fname != ''">fname,</if>
+            <if test="fnumber != null and fnumber != ''">fnumber,</if>
+            <if test="ftype != null and ftype != ''">ftype,</if>
+            <if test="fzjNumbvber != null and fzjNumbvber != ''">fzj_numbvber,</if>
+            <if test="fzjZfm != null and fzjZfm != ''">fzj_zfm,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fcountry != null">#{fcountry},</if>
+            <if test="fname != null and fname != ''">#{fname},</if>
+            <if test="fnumber != null and fnumber != ''">#{fnumber},</if>
+            <if test="ftype != null and ftype != ''">#{ftype},</if>
+            <if test="fzjNumbvber != null and fzjNumbvber != ''">#{fzjNumbvber},</if>
+            <if test="fzjZfm != null and fzjZfm != ''">#{fzjZfm},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysFyrInformation" parameterType="SysFyrInformation">
+        update sys_fyr_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fname != null and fname != ''">fname = #{fname},</if>
+            <if test="fnumber != null and fnumber != ''">fnumber = #{fnumber},</if>
+            <if test="ftype != null and ftype != ''">ftype = #{ftype},</if>
+            <if test="fzjNumbvber != null and fzjNumbvber != ''">fzj_numbvber = #{fzjNumbvber},</if>
+            <if test="fzjZfm != null and fzjZfm != ''">fzj_zfm = #{fzjZfm},</if>
+        </trim>
+        where fcountry = #{fcountry}
+    </update>
+
+    <delete id="deleteSysFyrInformationByFcountry" parameterType="String">
+        delete from sys_fyr_information where fcountry = #{fcountry}
+    </delete>
+
+    <delete id="deleteSysFyrInformationByFcountrys" parameterType="String">
+        delete from sys_fyr_information where fcountry in 
+        <foreach item="fcountry" collection="array" open="(" separator="," close=")">
+            #{fcountry}
+        </foreach>
+    </delete>
+</mapper>

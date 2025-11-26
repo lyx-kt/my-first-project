@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysYunshuCompanyMapper">
+    
+    <resultMap type="SysYunshuCompany" id="SysYunshuCompanyResult">
+        <result property="companyName"    column="company_name"    />
+        <result property="companyProfile"    column="company_profile"    />
+        <result property="companyAddress"    column="company_address"    />
+        <result property="PortContact"    column="PortContact"    />
+        <result property="companyCode"    column="company_code"    />
+        <result property="PersonName"    column="Person_Name"    />
+        <result property="personPhone"    column="Person_phone"    />
+        <result property="CompanyIDPhotos"    column="Company_ID_Photos"    />
+        <result property="ServiceItemsandFeeStandards"    column="Service_Items_and_Fee_Standards"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysYunshuCompanyVo">
+        select company_name, company_profile, company_address, PortContact, company_code, Person_Name, Person_phone, Company_ID_Photos, Service_Items_and_Fee_Standards, create_time, date_time, create_by, update_by, remark from sys_yunshu_company
+    </sql>
+
+    <select id="selectSysYunshuCompanyList" parameterType="SysYunshuCompany" resultMap="SysYunshuCompanyResult">
+        <include refid="selectSysYunshuCompanyVo"/>
+        <where>  
+            <if test="companyProfile != null  and companyProfile != ''"> and company_profile = #{companyProfile}</if>
+            <if test="companyAddress != null  and companyAddress != ''"> and company_address = #{companyAddress}</if>
+            <if test="PortContact != null  and PortContact != ''"> and PortContact = #{PortContact}</if>
+            <if test="companyCode != null  and companyCode != ''"> and company_code = #{companyCode}</if>
+            <if test="PersonName != null  and PersonName != ''"> and Person_Name like concat('%', #{PersonName}, '%')</if>
+            <if test="personPhone != null "> and Person_phone = #{personPhone}</if>
+            <if test="CompanyIDPhotos != null  and CompanyIDPhotos != ''"> and Company_ID_Photos = #{CompanyIDPhotos}</if>
+            <if test="ServiceItemsandFeeStandards != null  and ServiceItemsandFeeStandards != ''"> and Service_Items_and_Fee_Standards = #{ServiceItemsandFeeStandards}</if>
+            <if test="dateTime != null "> and date_time = #{dateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysYunshuCompanyByCompanyName" parameterType="String" resultMap="SysYunshuCompanyResult">
+        <include refid="selectSysYunshuCompanyVo"/>
+        where company_name = #{companyName}
+    </select>
+
+    <insert id="insertSysYunshuCompany" parameterType="SysYunshuCompany">
+        insert into sys_yunshu_company
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyName != null and companyName != ''">company_name,</if>
+            <if test="companyProfile != null">company_profile,</if>
+            <if test="companyAddress != null and companyAddress != ''">company_address,</if>
+            <if test="PortContact != null">PortContact,</if>
+            <if test="companyCode != null and companyCode != ''">company_code,</if>
+            <if test="PersonName != null and PersonName != ''">Person_Name,</if>
+            <if test="personPhone != null">Person_phone,</if>
+            <if test="CompanyIDPhotos != null">Company_ID_Photos,</if>
+            <if test="ServiceItemsandFeeStandards != null">Service_Items_and_Fee_Standards,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyName != null and companyName != ''">#{companyName},</if>
+            <if test="companyProfile != null">#{companyProfile},</if>
+            <if test="companyAddress != null and companyAddress != ''">#{companyAddress},</if>
+            <if test="PortContact != null">#{PortContact},</if>
+            <if test="companyCode != null and companyCode != ''">#{companyCode},</if>
+            <if test="PersonName != null and PersonName != ''">#{PersonName},</if>
+            <if test="personPhone != null">#{personPhone},</if>
+            <if test="CompanyIDPhotos != null">#{CompanyIDPhotos},</if>
+            <if test="ServiceItemsandFeeStandards != null">#{ServiceItemsandFeeStandards},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysYunshuCompany" parameterType="SysYunshuCompany">
+        update sys_yunshu_company
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="companyProfile != null">company_profile = #{companyProfile},</if>
+            <if test="companyAddress != null and companyAddress != ''">company_address = #{companyAddress},</if>
+            <if test="PortContact != null">PortContact = #{PortContact},</if>
+            <if test="companyCode != null and companyCode != ''">company_code = #{companyCode},</if>
+            <if test="PersonName != null and PersonName != ''">PersonName = #{PersonName},</if>
+            <if test="personPhone != null">Person_phone = #{personPhone},</if>
+            <if test="CompanyIDPhotos != null">Company_ID_Photos = #{CompanyIDPhotos},</if>
+            <if test="ServiceItemsandFeeStandards != null">Service_Items_and_Fee_Standards = #{ServiceItemsandFeeStandards},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where company_name = #{companyName}
+    </update>
+
+    <delete id="deleteSysYunshuCompanyByCompanyName" parameterType="String">
+        delete from sys_yunshu_company where company_name = #{companyName}
+    </delete>
+
+    <delete id="deleteSysYunshuCompanyByCompanyNames" parameterType="String">
+        delete from sys_yunshu_company where company_name in 
+        <foreach item="companyName" collection="array" open="(" separator="," close=")">
+            #{companyName}
+        </foreach>
+    </delete>
+</mapper>

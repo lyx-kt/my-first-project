@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysGpsInformationMapper">
+    
+    <resultMap type="SysGpsInformation" id="SysGpsInformationResult">
+        <result property="userId"    column="user_id"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="altitude"    column="altitude"    />
+        <result property="speed"    column="speed"    />
+        <result property="coordinateType"    column="coordinate_type"    />
+        <result property="locationTime"    column="location_time"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectSysGpsInformationVo">
+        select user_id, latitude, longitude, altitude, speed, coordinate_type, location_time, create_time from sys_gps_information
+    </sql>
+
+    <select id="selectSysGpsInformationList" parameterType="SysGpsInformation" resultMap="SysGpsInformationResult">
+        <include refid="selectSysGpsInformationVo"/>
+        <where>  
+            <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
+            <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
+            <if test="altitude != null  and altitude != ''"> and altitude = #{altitude}</if>
+            <if test="speed != null  and speed != ''"> and speed = #{speed}</if>
+            <if test="coordinateType != null  and coordinateType != ''"> and coordinate_type = #{coordinateType}</if>
+            <if test="locationTime != null "> and location_time = #{locationTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysGpsInformationByUserId" parameterType="String" resultMap="SysGpsInformationResult">
+        <include refid="selectSysGpsInformationVo"/>
+        where user_id = #{userId}
+    </select>
+
+    <insert id="insertSysGpsInformation" parameterType="SysGpsInformation">
+        insert into sys_gps_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="latitude != null and latitude != ''">latitude,</if>
+            <if test="longitude != null and longitude != ''">longitude,</if>
+            <if test="altitude != null and altitude != ''">altitude,</if>
+            <if test="speed != null and speed != ''">speed,</if>
+            <if test="coordinateType != null and coordinateType != ''">coordinate_type,</if>
+            <if test="locationTime != null">location_time,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="latitude != null and latitude != ''">#{latitude},</if>
+            <if test="longitude != null and longitude != ''">#{longitude},</if>
+            <if test="altitude != null and altitude != ''">#{altitude},</if>
+            <if test="speed != null and speed != ''">#{speed},</if>
+            <if test="coordinateType != null and coordinateType != ''">#{coordinateType},</if>
+            <if test="locationTime != null">#{locationTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysGpsInformation" parameterType="SysGpsInformation">
+        update sys_gps_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="latitude != null and latitude != ''">latitude = #{latitude},</if>
+            <if test="longitude != null and longitude != ''">longitude = #{longitude},</if>
+            <if test="altitude != null and altitude != ''">altitude = #{altitude},</if>
+            <if test="speed != null and speed != ''">speed = #{speed},</if>
+            <if test="coordinateType != null and coordinateType != ''">coordinate_type = #{coordinateType},</if>
+            <if test="locationTime != null">location_time = #{locationTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+    <delete id="deleteSysGpsInformationByUserId" parameterType="String">
+        delete from sys_gps_information where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteSysGpsInformationByUserIds" parameterType="String">
+        delete from sys_gps_information where user_id in 
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+
+    <!-- 获取用户最新定位信息 -->
+    <select id="getUserLatestLocation" parameterType="Long" resultMap="SysGpsInformationResult">
+        <include refid="selectSysGpsInformationVo"/>
+        where user_id = #{userId}
+        order by create_time desc, location_time desc
+        limit 1
+    </select>
+</mapper>
