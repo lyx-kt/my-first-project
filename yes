@@ -1,24 +1,8 @@
-diff.astextplain.textconv=astextplain
-filter.lfs.clean=git-lfs clean -- %f
-filter.lfs.smudge=git-lfs smudge -- %f
-filter.lfs.process=git-lfs filter-process
-filter.lfs.required=true
-http.sslbackend=openssl
-http.sslcainfo=D:/Git/mingw64/etc/ssl/certs/ca-bundle.crt
-core.autocrlf=true
-core.fscache=true
-core.symlinks=false
-pull.rebase=false
-credential.helper=manager
-credential.https://dev.azure.com.usehttppath=true
-init.defaultbranch=master
-user.name=your_github_usernamelyx-kt
-user.email=2244200235@qq.com
-uesr.name=lyx-kt
-uesr.email=2244200235@qq.com
-core.repositoryformatversion=0
-core.filemode=false
-core.bare=false
-core.logallrefupdates=true
-core.symlinks=false
-core.ignorecase=true
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABCuS2TsOz
+WpHfJmh/c8Cx+tAAAAEAAAAAEAAAAzAAAAC3NzaC1lZDI1NTE5AAAAICrEPbqkJsFKaX54
+Ij5uATTIoa7gjNv+GNg5aysCh73nAAAAoOWF9DAIppIYhtYPwWGmZqX3SRDilkWjlmcXcy
+dSEgBmN0+7SO4TFWsNwupBkNsOUYTSvcIK/25C6F33YpRE4QixRH36xZmSEtiaHEFOZ3xz
+MBBVvI3BuhECkr3TMsJvq85NiM4DVB5g23MC5pCcUt6ct1K+VXWc0q8S2qtE1Xe3IQqvs/
+1HCpJRsYRW1hNYPFbfWYLLV4NZizx3KyzFpug=
+-----END OPENSSH PRIVATE KEY-----
